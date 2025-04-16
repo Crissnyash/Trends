@@ -1,0 +1,20 @@
+testagram_backend/
+├── app/
+│   ├── api/
+│   │   ├── auth.py
+│   │   ├── users.py
+│   │   ├── posts.py
+│   │   ├── music.py
+│   │   └── tweets.py
+│   ├── core/
+│   │   ├── config.py
+│   │   └── database.py
+│   ├── models/
+│   │   ├── user.py
+│   │   ├── post.py
+│   │   ├── tweet.py
+│   │   └── music.py
+│   ├── main.py
+├── requirements.txt
+├── README.md
+└── .env
