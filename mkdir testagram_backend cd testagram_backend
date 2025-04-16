@@ -1,0 +1,76 @@
+# Step 1: Create root folder
+mkdir -p testagram_backend/app/api
+mkdir -p testagram_backend/app/core
+mkdir -p testagram_backend/app/models
+
+# Step 2: Move into the project folder
+cd testagram_backend
+
+# Step 3: Create main.py
+cat > app/main.py <<EOF
+from fastapi import FastAPI
+from app.api import auth, users, posts, tweets, music
+
+app = FastAPI(title="Testagram Reels API")
+
+app.include_router(auth.router)
+app.include_router(users.router)
+app.include_router(posts.router)
+app.include_router(tweets.router)
+app.include_router(music.router)
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to Testagram Reels API"}
+EOF
+
+# Step 4: Create placeholder route files
+echo 'from fastapi import APIRouter\n\nrouter = APIRouter(prefix="/auth", tags=["Authentication"])\n\n@router.post("/login")\ndef login():\n    return {"message": "Login route"}\n\n@router.post("/signup")\ndef signup():\n    return {"message": "Signup route"}' > app/api/auth.py
+
+echo 'from fastapi import APIRouter\n\nrouter = APIRouter(prefix="/users", tags=["Users"])' > app/api/users.py
+echo 'from fastapi import APIRouter\n\nrouter = APIRouter(prefix="/posts", tags=["Posts"])' > app/api/posts.py
+echo 'from fastapi import APIRouter\n\nrouter = APIRouter(prefix="/tweets", tags=["Tweets"])' > app/api/tweets.py
+echo 'from fastapi import APIRouter\n\nrouter = APIRouter(prefix="/music", tags=["Music"])' > app/api/music.py
+
+# Step 5: Create requirements.txt
+cat > requirements.txt <<EOF
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+python-dotenv
+EOF
+
+# Step 6: Create .gitignore
+echo "__pycache__/\n.env\n*.pyc\n*.db" > .gitignore
+
+# Step 7: Optional - Create README.md
+cat > README.md <<EOF
+# Testagram Reels Backend
+
+This is the backend API for the Testagram Reels app built using FastAPI.
+
+## Features
+- Auth (Signup/Login)
+- Users
+- Posts (Videos/Blogs)
+- Tweets
+- Music Streaming
+
+## Getting Started
+
+Install dependencies:
+
+\`\`\`bash
+pip install -r requirements.txt
+\`\`\`
+
+Run the app:
+
+\`\`\`bash
+uvicorn app.main:app --reload
+\`\`\`
+
+API Docs: http://127.0.0.1:8000/docs
+EOF
+git init
